@@ -1,0 +1,147 @@
+/* src/pages/VotePage.css */
+
+/* Контейнер для всієї сторінки голосування */
+.vote-container {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto; /* Центрує контейнер по горизонталі */
+    text-align: center;
+  }
+  
+  /* Кнопки для вибору категорій */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button.active {
+    background-color: #2196F3;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  /* Секція категорій */
+  .category-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Центрує кнопки категорій по горизонталі */
+    margin: 20px 0;
+  }
+  
+  .category-button {
+    padding: 15px 30px;
+    margin: 5px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+    width: 200px;
+  }
+  
+  .category-button.active {
+    background-color: #2196F3;
+    color: white;
+    border-color: #2196F3;
+  }
+  
+  .category-button:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Секція кандидатів */
+  .candidate-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .candidate-card {
+    background-color: #f1f1f1;
+    padding: 15px;
+    margin: 10px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .candidate-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .candidate-card p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .candidate-card button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .candidate-card button:hover {
+    background-color: #45a049;
+  }
+  
+  .candidate-card button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Статистика голосування */
+  .vote-stats {
+    margin: 30px 0;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .vote-stats h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .vote-stats p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .vote-stats ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .vote-stats li {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  

@@ -1,26 +1,17 @@
+// src/App.js
+
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './pages/Home';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import VotePage from './pages/VotePage';
+import LoginPage from './pages/LoginPage'; // якщо буде така сторінка
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Головна</Link>
-            </li>
-
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<VotePage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
     </Router>
   );
 }
