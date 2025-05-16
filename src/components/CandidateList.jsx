@@ -2,7 +2,8 @@ import React from 'react';
 
 function CandidateList({ candidates, categoryName, onVote, hasVoted }) {
   return (
-    <div>
+    <div className="category-list">
+    <div className="candidate-card">
       <h3>Кандидати в категорії: {categoryName}</h3>
       {candidates.length === 0 && <p>Немає кандидатів</p>}
       {candidates.map((cand) => (
@@ -18,6 +19,7 @@ function CandidateList({ candidates, categoryName, onVote, hasVoted }) {
         </div>
       ))}
     </div>
+</div>
   );
 }
 

@@ -1,5 +1,3 @@
-/* src/pages/VotePage.css */
-
 /* Контейнер для всієї сторінки голосування */
 .vote-container {
     font-family: 'Arial', sans-serif;
@@ -9,34 +7,28 @@
     text-align: center;
   }
   
-  /* Кнопки для вибору категорій */
-  button {
-    background-color: #4CAF50;
+  /* Заголовок сторінки */
+  .vote-container > h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  /* Кнопки на сторінці */
+  .vote-container > button {
+    background-color: #4caf50;
     color: white;
     padding: 10px 20px;
     font-size: 1.2rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 10px;
+    margin: 10px 10px 20px 10px;
     transition: background-color 0.3s ease;
   }
   
-  button:hover {
+  .vote-container > button:hover {
     background-color: #45a049;
-  }
-  
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  button.active {
-    background-color: #2196F3;
-  }
-  
-  button:focus {
-    outline: none;
   }
   
   /* Секція категорій */
@@ -47,27 +39,36 @@
     margin: 20px 0;
   }
   
-  .category-button {
-    padding: 15px 30px;
-    margin: 5px;
-    font-size: 1.1rem;
-    border: 2px solid #ddd;
+  /* Кнопка категорії */
+  /* Кнопка категорії у стилі основних кнопок */
+.category-button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 1.2rem;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #f9f9f9;
+    background-color: #4caf50;
+    color: white;
     transition: background-color 0.3s ease;
     width: 200px;
   }
   
-  .category-button.active {
-    background-color: #2196F3;
-    color: white;
-    border-color: #2196F3;
+  .category-button:hover {
+    background-color: #45a049;
   }
   
-  .category-button:hover {
-    background-color: #f1f1f1;
+  .category-button.active {
+    background-color: #388e3c; /* Трохи темніший зелений для активної */
+    color: white;
   }
+  
+  .category-button:disabled {
+    background-color: #808080; /* Сірий колір для неактивних */
+    color: #ffffff;
+    cursor: not-allowed;
+  }
+  
   
   /* Секція кандидатів */
   .candidate-list {
@@ -77,44 +78,59 @@
     margin: 20px 0;
   }
   
-  .candidate-card {
-    background-color: #f1f1f1;
-    padding: 15px;
-    margin: 10px;
-    width: 300px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Картка кандидата */
+.candidate-card {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px;
+    width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .candidate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   }
   
   .candidate-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    color: #2c3e50;
   }
   
   .candidate-card p {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #555;
   }
   
+  /* Кнопка голосування */
   .candidate-card button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
+    padding: 10px 24px;
+    background-color: #4caf50;
     color: white;
+    font-size: 1rem;
+    font-weight: 600;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
   
   .candidate-card button:hover {
     background-color: #45a049;
+    transform: scale(1.05);
   }
   
   .candidate-card button:disabled {
-    background-color: #ccc;
+    background-color: #a9a9a9;
+    color: #ffffff;
     cursor: not-allowed;
   }
+  
   
   /* Статистика голосування */
   .vote-stats {
@@ -128,11 +144,13 @@
   .vote-stats h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
+    color: #333;
   }
   
   .vote-stats p {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    color: #555;
   }
   
   .vote-stats ul {
@@ -143,5 +161,6 @@
   .vote-stats li {
     font-size: 1rem;
     margin-bottom: 5px;
+    color: #666;
   }
   

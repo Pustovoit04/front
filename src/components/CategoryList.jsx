@@ -4,18 +4,17 @@ function CategoryList({ categories, selected, onSelect }) {
   return (
     <div>
       <h2>Категорії</h2>
-      <ul>
-        {categories.map((cat) => (
-          <li key={cat.id}>
-            <button
-              style={{ fontWeight: selected?.id === cat.id ? 'bold' : 'normal' }}
-              onClick={() => onSelect(cat)}
-            >
-              {cat.name}
-            </button>
-          </li>
+      <div className="category-list">
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            className={`category-button ${selected?.id === category.id ? 'active' : ''}`}
+            onClick={() => onSelect(category)}
+          >
+            {category.name}
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

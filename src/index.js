@@ -4,17 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// ⬇️ Імпортуємо контекст авторизації
+// ⬇️ Імпортуємо контексти
 import { AuthProvider } from './context/AuthContext';
+import { DataProvider } from './context/DataContext'; // ⬅️ додай це
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <DataProvider> {/* ⬅️ обгортаємо App ще одним провайдером */}
+        <App />
+      </DataProvider>
     </AuthProvider>
   </React.StrictMode>
 );
 
 reportWebVitals();
-
