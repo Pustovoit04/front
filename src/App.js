@@ -1,42 +1,31 @@
-// src/App.js
-
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import VotePage from './pages/VotePage';
-import LoginPage from './pages/LoginPage'; // якщо буде така сторінка
+import LoginPage from './pages/LoginPage';
 import NewCategoryPage from './pages/NewCategoryPage';
+import { useAuth } from './context/AuthContext';
 
 function App() {
-  const [categories, setCategories] = useState([
-    { id: 'cat1', name: 'Містер ФРЕКС' },
-    { id: 'cat2', name: 'Міс ФРЕКС' },
-    { id: 'cat3', name: 'Міс Конгеніальність' },
-  ]);
+  const { user, loading } = useAuth();
 
-  const addCategory = (newCat) => setCategories((prev) => [...prev, newCat]);
-  const editCategory = (id, newName) =>
-    setCategories((prev) =>
-      prev.map((cat) => (cat.id === id ? { ...cat, name: newName } : cat))
-    );
-  const deleteCategory = (id) =>
-    setCategories((prev) => prev.filter((cat) => cat.id !== id));
+  if (loading) return <div>Завантаження...</div>;
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<VotePage categories={categories} />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/vote"
+          element={user ? <VotePage /> : <Navigate to="/login" />}
+        />
         <Route
           path="/new-category"
-          element={
-            <NewCategoryPage
-              categories={categories}
-              onAddCategory={addCategory}
-              onEditCategory={editCategory}
-              onDeleteCategory={deleteCategory}
-            />
-          }
+          element={user ? <NewCategoryPage /> : <Navigate to="/login" />}
         />
+        <Route
+          path="/login"
+          element={!user ? <LoginPage /> : <Navigate to="/vote" />}
+        />
+        <Route path="*" element={<Navigate to={user ? '/vote' : '/login'} />} />
       </Routes>
     </Router>
   );

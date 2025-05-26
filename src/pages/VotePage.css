@@ -5,17 +5,17 @@
     max-width: 1000px;
     margin: 0 auto; /* Центрує контейнер по горизонталі */
     text-align: center;
-  }
-  
-  /* Заголовок сторінки */
-  .vote-container > h1 {
+}
+
+/* Заголовок сторінки */
+.vote-container > h1 {
     margin-bottom: 20px;
     font-size: 2.5rem;
     color: #333;
-  }
-  
-  /* Кнопки на сторінці */
-  .vote-container > button {
+}
+
+/* Кнопки на сторінці */
+.vote-container > button {
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
@@ -25,22 +25,21 @@
     cursor: pointer;
     margin: 10px 10px 20px 10px;
     transition: background-color 0.3s ease;
-  }
-  
-  .vote-container > button:hover {
+}
+
+.vote-container > button:hover {
     background-color: #45a049;
-  }
-  
-  /* Секція категорій */
-  .category-list {
+}
+
+/* Секція категорій */
+.category-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* Центрує кнопки категорій по горизонталі */
     margin: 20px 0;
-  }
-  
-  /* Кнопка категорії */
-  /* Кнопка категорії у стилі основних кнопок */
+}
+
+/* Кнопка категорії */
 .category-button {
     padding: 10px 20px;
     margin: 10px;
@@ -52,33 +51,32 @@
     color: white;
     transition: background-color 0.3s ease;
     width: 200px;
-  }
-  
-  .category-button:hover {
+}
+
+.category-button:hover {
     background-color: #45a049;
-  }
-  
-  .category-button.active {
+}
+
+.category-button.active {
     background-color: #388e3c; /* Трохи темніший зелений для активної */
     color: white;
-  }
-  
-  .category-button:disabled {
+}
+
+.category-button:disabled {
     background-color: #808080; /* Сірий колір для неактивних */
     color: #ffffff;
     cursor: not-allowed;
-  }
-  
-  
-  /* Секція кандидатів */
-  .candidate-list {
+}
+
+/* Секція кандидатів */
+.candidate-list {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px 0;
-  }
-  
-  /* Картка кандидата */
+}
+
+/* Картка кандидата */
 .candidate-card {
     background-color: #ffffff;
     padding: 20px;
@@ -88,27 +86,27 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.3s ease;
-  }
-  
-  .candidate-card:hover {
+}
+
+.candidate-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  }
-  
-  .candidate-card h3 {
+}
+
+.candidate-card h3 {
     font-size: 1.6rem;
     margin-bottom: 12px;
     color: #2c3e50;
-  }
-  
-  .candidate-card p {
+}
+
+.candidate-card p {
     font-size: 1.1rem;
     margin-bottom: 15px;
     color: #555;
-  }
-  
-  /* Кнопка голосування */
-  .candidate-card button {
+}
+
+/* Кнопка голосування */
+.candidate-card button {
     padding: 10px 24px;
     background-color: #4caf50;
     color: white;
@@ -118,49 +116,69 @@
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .candidate-card button:hover {
+}
+
+.candidate-card button:hover {
     background-color: #45a049;
     transform: scale(1.05);
-  }
-  
-  .candidate-card button:disabled {
+}
+
+.candidate-card button:disabled {
     background-color: #a9a9a9;
     color: #ffffff;
     cursor: not-allowed;
-  }
-  
-  
-  /* Статистика голосування */
-  .vote-stats {
+}
+
+/* Статистика голосування */
+.vote-stats {
     margin: 30px 0;
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .vote-stats h2 {
+}
+
+.vote-stats h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
     color: #333;
-  }
-  
-  .vote-stats p {
+}
+
+.vote-stats p {
     font-size: 1.2rem;
     margin-bottom: 10px;
     color: #555;
-  }
-  
-  .vote-stats ul {
+}
+
+.vote-stats ul {
     list-style-type: none;
     padding: 0;
-  }
-  
-  .vote-stats li {
+}
+
+.vote-stats li {
     font-size: 1rem;
     margin-bottom: 5px;
     color: #666;
-  }
-  
+}
+
+/* Кнопка виходу */
+.logout-button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #388e3c; /* Темніший зелений, щоб виділити "Вихід" */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #2f6b31; /* Ще темніший відтінок при наведенні */
+    transform: scale(1.05); /* Легке збільшення при наведенні */
+}
+
+.logout-button:active {
+    background-color: #255625; /* Темний відтінок при натисканні */
+}

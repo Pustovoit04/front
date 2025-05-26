@@ -1,62 +1,162 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useData } from '../context/DataContext';
+import { useAuth } from '../context/AuthContext';
+import {
+  fetchCategories,
+  fetchCandidatesByCategory,
+  createCategory,
+  updateCategory,
+  createCandidate,
+  deleteCategory,
+  deleteCandidate,
+} from '../api/voteApi';
 import './NewCategoryPage.css';
 
 function NewCategoryPage() {
   const navigate = useNavigate();
-  const { categories, setCategories, candidates, setCandidates } = useData();
+  const { user } = useAuth();
 
-  const [newCategoryName, setNewCategoryName] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [candidates, setCandidates] = useState([]);
   const [selectedCatId, setSelectedCatId] = useState('');
+  const [newCategoryName, setNewCategoryName] = useState('');
   const [newName, setNewName] = useState('');
-
   const [newCandidateName, setNewCandidateName] = useState('');
   const [selectedCandidateToDelete, setSelectedCandidateToDelete] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleCreate = () => {
-    if (!newCategoryName.trim()) return;
-    const id = `cat${Date.now()}`;
-    setCategories([...categories, { id, name: newCategoryName }]);
-    setCandidates({ ...candidates, [id]: [] });
-    setNewCategoryName('');
+  // Завантажуємо категорії при завантаженні компонента
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    fetchCategories()
+      .then(setCategories)
+      .catch(() => setError('Не вдалося завантажити категорії'));
+  }, [user, navigate]);
+
+  // При зміні вибраної категорії завантажуємо кандидатів
+  useEffect(() => {
+    if (!selectedCatId) {
+      setCandidates([]);
+      return;
+    }
+    fetchCandidatesByCategory(selectedCatId)
+      .then(setCandidates)
+      .catch(() => setError('Не вдалося завантажити кандидатів'));
+  }, [selectedCatId]);
+
+  // Після створення категорії оновлюємо список
+  const handleCreate = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    if (!newCategoryName.trim()) {
+      setError('Назва категорії не може бути порожньою');
+      return;
+    }
+    try {
+      await createCategory({ name: newCategoryName });
+      setNewCategoryName('');
+      setError(null);
+      const updatedCategories = await fetchCategories();
+      setCategories(updatedCategories);
+    } catch {
+      setError('Не вдалося створити категорію');
+    }
   };
 
-  const handleDelete = () => {
-    if (!selectedCatId) return;
-    setCategories(categories.filter(c => c.id !== selectedCatId));
-    const updated = { ...candidates };
-    delete updated[selectedCatId];
-    setCandidates(updated);
-    setSelectedCatId('');
+  // Після редагування категорії оновлюємо список
+  const handleRename = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    if (!selectedCatId || !newName.trim()) {
+      setError('Оберіть категорію та введіть нову назву');
+      return;
+    }
+    try {
+      await updateCategory(selectedCatId, { name: newName });
+      setNewName('');
+      setError(null);
+      const updatedCategories = await fetchCategories();
+      setCategories(updatedCategories);
+    } catch {
+      setError('Не вдалося оновити назву категорії');
+    }
   };
 
-  const handleRename = () => {
-    if (!selectedCatId || !newName.trim()) return;
-    setCategories(categories.map(c => c.id === selectedCatId ? { ...c, name: newName } : c));
-    setNewName('');
+  // Після додавання кандидата оновлюємо список кандидатів
+  const handleAddCandidate = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    if (!selectedCatId || !newCandidateName.trim()) {
+      setError('Оберіть категорію та введіть ім’я кандидата');
+      return;
+    }
+    try {
+      await createCandidate(selectedCatId, { name: newCandidateName });
+      setNewCandidateName('');
+      setError(null);
+      const updatedCandidates = await fetchCandidatesByCategory(selectedCatId);
+      setCandidates(updatedCandidates);
+    } catch {
+      setError('Не вдалося додати кандидата');
+    }
   };
 
-  const handleAddCandidate = () => {
-    if (!selectedCatId || !newCandidateName.trim()) return;
-    const newCandidate = {
-      id: `cand${Date.now()}`,
-      name: newCandidateName,
-      votes: 0,
-    };
-    const updated = { ...candidates };
-    updated[selectedCatId] = [...(updated[selectedCatId] || []), newCandidate];
-    setCandidates(updated);
-    setNewCandidateName('');
+  // Після видалення категорії оновлюємо список категорій
+  const handleDelete = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    if (!selectedCatId) {
+      setError('Оберіть категорію для видалення');
+      return;
+    }
+    try {
+      await deleteCategory(selectedCatId);
+      setSelectedCatId('');
+      setError(null);
+      const updatedCategories = await fetchCategories();
+      setCategories(updatedCategories);
+      setCandidates([]);
+    } catch {
+      setError('Не вдалося видалити категорію');
+    }
   };
 
-  const handleDeleteCandidate = () => {
-    if (!selectedCatId || !selectedCandidateToDelete) return;
-    const updated = { ...candidates };
-    updated[selectedCatId] = updated[selectedCatId].filter(c => c.id !== selectedCandidateToDelete);
-    setCandidates(updated);
-    setSelectedCandidateToDelete('');
+  // Після видалення кандидата оновлюємо список кандидатів
+  const handleDeleteCandidate = async () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    if (!selectedCatId || !selectedCandidateToDelete) {
+      setError('Оберіть кандидата для видалення');
+      return;
+    }
+    try {
+      await deleteCandidate(selectedCatId, selectedCandidateToDelete);
+      setSelectedCandidateToDelete('');
+      setError(null);
+      const updatedCandidates = await fetchCandidatesByCategory(selectedCatId);
+      setCandidates(updatedCandidates);
+    } catch {
+      setError('Не вдалося видалити кандидата');
+    }
   };
+
+  if (!user) {
+    navigate('/login');
+    return null;
+  }
 
   return (
     <div className="category-settings-container">
@@ -78,7 +178,7 @@ function NewCategoryPage() {
         <h3>Оберіть категорію</h3>
         <select value={selectedCatId} onChange={(e) => setSelectedCatId(e.target.value)}>
           <option value="">-- Виберіть категорію --</option>
-          {categories.map((cat) => (
+          {categories.map(cat => (
             <option key={cat.id} value={cat.id}>{cat.name}</option>
           ))}
         </select>
@@ -111,8 +211,8 @@ function NewCategoryPage() {
           <div className="section">
             <h3>Існуючі кандидати</h3>
             <ul>
-              {(candidates[selectedCatId] || []).map((cand) => (
-                <li key={cand.id}>{cand.name} — {cand.votes} голосів</li>
+              {candidates.map(c => (
+                <li key={c.id}>{c.name}</li>
               ))}
             </ul>
             <select
@@ -120,8 +220,8 @@ function NewCategoryPage() {
               onChange={(e) => setSelectedCandidateToDelete(e.target.value)}
             >
               <option value="">-- Виберіть кандидата --</option>
-              {(candidates[selectedCatId] || []).map((cand) => (
-                <option key={cand.id} value={cand.id}>{cand.name}</option>
+              {candidates.map(c => (
+                <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </select>
             <button onClick={handleDeleteCandidate}>🗑️ Видалити</button>
@@ -132,6 +232,8 @@ function NewCategoryPage() {
           </div>
         </>
       )}
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 }
