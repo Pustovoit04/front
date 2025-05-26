@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Базовий URL вашого бекенду
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://practice-trly.onrender.com';
 
 // Налаштування axios для роботи з авторизацією
 const api = axios.create({
